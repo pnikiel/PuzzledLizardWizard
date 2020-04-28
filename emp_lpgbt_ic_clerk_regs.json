@@ -1,0 +1,174 @@
+{
+  "jsonVersion": 2,
+  "registerMap": {
+    "name": "emp_lpgbt_ic_clerk",
+    "description": "A rather trivial prototype of an AXI component that generates a \"read request\" lpGBT frame.",
+    "width": 32,
+    "baseAddress": 0,
+    "registers": [
+      {
+        "type": "Register",
+        "name": "magic",
+        "description": "Magic word to identify components",
+        "access": "READ_ONLY",
+        "addressOffset": 0,
+        "size": 32,
+        "fields": [
+          {
+            "name": "value",
+            "description": "Should return 0x656d7049 which is empI that stands for EMP IC component",
+            "bitWidth": 32,
+            "bitOffset": 0,
+            "reset": 1701670985,
+            "selfClear": false,
+            "enumValues": []
+          }
+        ]
+      },
+      {
+        "type": "Register",
+        "name": "status",
+        "description": "",
+        "access": "READ_ONLY",
+        "addressOffset": 4,
+        "size": 32,
+        "fields": [
+          {
+            "name": "active",
+            "description": "",
+            "bitWidth": 1,
+            "bitOffset": 0,
+            "reset": 0,
+            "selfClear": false,
+            "enumValues": []
+          },
+          {
+            "name": "irq",
+            "description": "",
+            "bitWidth": 1,
+            "bitOffset": 1,
+            "reset": 0,
+            "selfClear": false,
+            "enumValues": []
+          }
+        ]
+      },
+      {
+        "type": "Register",
+        "name": "control",
+        "description": "Mostly used to initiate the read request",
+        "access": "WRITE_ONLY",
+        "addressOffset": 8,
+        "size": 32,
+        "fields": [
+          {
+            "name": "start",
+            "description": "",
+            "bitWidth": 1,
+            "bitOffset": 0,
+            "reset": 0,
+            "selfClear": false,
+            "enumValues": []
+          }
+        ]
+      },
+      {
+        "type": "Register",
+        "name": "lpgbt_address",
+        "description": "lpgbt address. Already asked Daniel what would it be. Will be part of ",
+        "access": "READ_WRITE",
+        "addressOffset": 12,
+        "size": 32,
+        "fields": [
+          {
+            "name": "value",
+            "description": "lpgbt address. Already asked Daniel what would it be.\r\n\r\nReference: https://lpgbt.web.cern.ch/lpgbt/v1/configuration.html#serial-control-and-monitoring-interface  ",
+            "bitWidth": 16,
+            "bitOffset": 0,
+            "reset": 1,
+            "selfClear": false,
+            "enumValues": []
+          }
+        ]
+      },
+      {
+        "type": "Register",
+        "name": "num_data_words",
+        "description": "This corresponds to field D in https://lpgbt.web.cern.ch/lpgbt/v1/configuration.html#serial-control-and-monitoring-interface",
+        "access": "READ_WRITE",
+        "addressOffset": 16,
+        "size": 32,
+        "fields": [
+          {
+            "name": "value",
+            "description": "This corresponds to field D in https://lpgbt.web.cern.ch/lpgbt/v1/configuration.html#serial-control-and-monitoring-interface",
+            "bitWidth": 16,
+            "bitOffset": 0,
+            "reset": 1,
+            "selfClear": false,
+            "enumValues": []
+          }
+        ]
+      },
+      {
+        "type": "Register",
+        "name": "register_address",
+        "description": "This corresponds to field ",
+        "access": "READ_WRITE",
+        "addressOffset": 20,
+        "size": 32,
+        "fields": [
+          {
+            "name": "register_address",
+            "description": "\r\nThis corresponds to field \"E\" in https://lpgbt.web.cern.ch/lpgbt/v1/configuration.html#serial-control-and-monitoring-interface",
+            "bitWidth": 16,
+            "bitOffset": 0,
+            "reset": 0,
+            "selfClear": false,
+            "enumValues": []
+          }
+        ]
+      },
+      {
+        "type": "Register",
+        "name": "counter_requests_sent_to_fifo",
+        "description": "",
+        "access": "READ_ONLY",
+        "addressOffset": 256,
+        "size": 32,
+        "fields": [
+          {
+            "name": "value",
+            "description": "",
+            "bitWidth": 32,
+            "bitOffset": 0,
+            "reset": 0,
+            "selfClear": false,
+            "enumValues": []
+          }
+        ]
+      },
+      {
+        "type": "Register",
+        "name": "counter_requests_received_from_fifo",
+        "description": "",
+        "access": "READ_ONLY",
+        "addressOffset": 260,
+        "size": 32,
+        "fields": [
+          {
+            "name": "value",
+            "description": "How many lpGBT IC request frames were received on the side of LHC clock",
+            "bitWidth": 32,
+            "bitOffset": 0,
+            "reset": 0,
+            "selfClear": false,
+            "enumValues": []
+          }
+        ]
+      }
+    ],
+    "revision": 29,
+    "generateRecordPorts": false
+  }
+}
