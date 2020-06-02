@@ -1,0 +1,30 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <stdint.h>
+
+struct uio_info_t;
+
+// for register map: {{json['registerMap']['name']}}
+
+struct uio_info_t* {{json['registerMap']['name']}}_open (unsigned int devnum);
+
+{% for register in json['registerMap']['registers'] %}
+
+  // at register: {{register['name']}}
+
+  {% for field in register['fields'] %}
+    {% if register['access'] == "READ_ONLY" or register['access'] == "READ_WRITE" %}
+      uint32_t {{json['registerMap']['name']}}_read_{{register['name']}}_{{field['name']}} (struct uio_info_t* uio_info);
+    {% endif %}
+    {% if register['access'] == "WRITE_ONLY" or register['access'] == "READ_WRITE" %}
+      void {{json['registerMap']['name']}}_write_{{register['name']}}_{{field['name']}} (struct uio_info_t* uio_info, uint32_t value);
+    {% endif %}
+  {% endfor %}
+
+{% endfor %}
+
+#ifdef __cplusplus
+}
+#endif
