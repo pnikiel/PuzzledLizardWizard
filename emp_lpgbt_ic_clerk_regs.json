@@ -166,9 +166,28 @@
             "enumValues": []
           }
         ]
+      },
+      {
+        "type": "Register",
+        "name": "counter_lhc_clock",
+        "description": "",
+        "access": "READ_ONLY",
+        "addressOffset": 264,
+        "size": 32,
+        "fields": [
+          {
+            "name": "value",
+            "description": "",
+            "bitWidth": 32,
+            "bitOffset": 0,
+            "reset": 0,
+            "selfClear": false,
+            "enumValues": []
+          }
+        ]
       }
     ],
-    "revision": 29,
+    "revision": 31,
     "generateRecordPorts": false
   }
 }
