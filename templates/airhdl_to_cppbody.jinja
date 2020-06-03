@@ -1,0 +1,53 @@
+#include <stdexcept>
+#include <string> // std::to_string
+#include <iostream>
+
+#include <libuio.h>
+#include <{{json['registerMap']['name']}}.hpp>
+
+// for register map: {{json['registerMap']['name']}}
+
+/** Opens uio-mapped component by uio device number */
+{{CppClassName}}::{{CppClassName}} (unsigned int devnum)
+{
+  m_uioInfo = uio_find_by_uio_num(devnum);
+  if (!m_uioInfo)
+    throw std::runtime_error("uio_find_by_uio_num with devnum " + std::to_string(devnum) + " failed.");
+
+  std::cout << "{{CppClassName}} ctr. " 
+    << "Found requested device with ids: " << uio_get_major(m_uioInfo) << "," << uio_get_minor(m_uioInfo);
+  if (uio_open(m_uioInfo))
+    throw std::runtime_error("uio_open failed.");
+}
+
+virtual ~{{CppClassName}} ()
+{
+  // TODO : implement
+}
+
+{% for register in json['registerMap']['registers'] %}
+
+  // at register: {{register['name']}}
+  {% for field in register['fields'] %}
+    {% if register['access'] == "READ_ONLY" or register['access'] == "READ_WRITE" %}
+      uint32_t {{CppClassName}}::read{{register['name']|to_camel}}{{field['name']|to_camel}} ()
+      {
+        uint32_t value (0);
+        if (uio_read32 (
+          m_uioInfo, 
+          0 /*map*/, 
+          {{register['addressOffset']}} /* address offset */,
+          &value))
+          {
+            throw std::runtime_error("uio_read32 failed");
+          };
+        // TODO value should be shifted here
+        return value;
+      }
+    {% endif %}
+    {% if register['access'] == "WRITE_ONLY" or register['access'] == "READ_WRITE" %}
+      void write{{register['name']|to_camel}}{{field['name']|to_camel}} (uint32_t value);
+    {% endif %}
+  {% endfor %}
+
+{% endfor %}
