@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+
+# author: Piotr P. Nikiel <piotr@nikiel.info>
+# date: May 2020
+
 import sys
 import json
 import jinja2
@@ -18,6 +23,7 @@ Jobs = {
     'c_lib_body'    :   {'xform': 'airhdl_to_body.jinja',       'output': '{component_name}.c'},
     'cpp_lib_header':   {'xform': 'airhdl_to_cppheader.jinja',  'output': '{cpp_class_name}.hpp'},
     'cpp_lib_body'  :   {'xform': 'airhdl_to_cppbody.jinja',    'output': '{cpp_class_name}.cpp'},
+    'cpp_python'    :   {'xform': 'airhdl_to_cpppython.jinja',  'output': '{cpp_class_name}Python.cpp'},
     }
 
 def apply_transform(env, transform, json_repr, output_name, output_dir):

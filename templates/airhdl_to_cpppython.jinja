@@ -1,0 +1,9 @@
+#include <boost/python.hpp>
+using namespace boost::python;
+
+#include <{{CppClassName}}.hpp>
+
+BOOST_PYTHON_MODULE({{CppClassName}})
+{
+  class_<{{CppClassName}}>("{{CppClassName}}", init<unsigned int>());
+}

@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include <libuio.h>
-#include <{{json['registerMap']['name']}}.hpp>
+#include <{{CppClassName}}.hpp>
 
 // for register map: {{json['registerMap']['name']}}
 
@@ -20,7 +20,7 @@
     throw std::runtime_error("uio_open failed.");
 }
 
-virtual ~{{CppClassName}} ()
+{{CppClassName}}::~{{CppClassName}} ()
 {
   // TODO : implement
 }
